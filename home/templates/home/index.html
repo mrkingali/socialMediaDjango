@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{% block content %}
+
+        <h1 class="text-center"> CHAT KADE</h1>
+        <p class="text-center"> post:</p>
+    <div class="text-center">
+
+        {% for post in posts %}
+            <div class="text-center">
+            <a href="{{ post.get_absolute_url }}">{{ post.user.username }} ==>>  {{ post.body|truncatechars:30 }}  :  {{ post.updated|date:"Y/m/d" }}</a>
+            </div>
+
+        {% endfor %}
+
+
+    </div>
+
+
+{% endblock %}

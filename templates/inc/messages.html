@@ -1,0 +1,6 @@
+{% if messages %}
+    {% for mess in messages %}
+<p class="alert alert-{{ mess.tags }}"> {{ mess }}</p>
+{% endfor %}
+
+{% endif %}
