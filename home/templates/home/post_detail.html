@@ -10,5 +10,25 @@
     <p> <a href="{% url 'account:profile_user' post.user.id %}">{{ post.user.username }}  </a>:  {{ post.updated|date:"Y/m/d  G:i:s" }}</p>
     <p>{{ post.body }}</p>
     </div>
+    <hr/>
+     {% if comments %}
+    <p> {{ comments.count }} comments </p>
+    {% endif %}
+    {% for comment in comments %}
+
+        <div class="card">
+            <p class="card-header"> {{ comment.user }} -- {{ comment.created| timesince  }}</p>
+
+            <p class="card-body">{{ comment.body }}</p>
+        </div>
+    {% empty %}
+        <div class="card">
+            <p class="card-body">no comment yet</p>
+        </div>
+
+    {% endfor %}
+
+
+
 
 {% endblock %}
