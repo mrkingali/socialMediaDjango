@@ -14,13 +14,47 @@
      {% if comments %}
     <p> {{ comments.count }} comments </p>
     {% endif %}
+
+    {% if request.user.is_authenticated %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="send">
+        </form>
+        <br/>
+    {% else %}
+        <p> only logged in user can send comment</p>
+    {% endif %}
+
     {% for comment in comments %}
 
         <div class="card">
             <p class="card-header"> {{ comment.user }} -- {{ comment.created| timesince  }}</p>
 
             <p class="card-body">{{ comment.body }}</p>
+
+{% if request.user.is_authenticated %}
+
+
+            <form action="{% url 'home:reply_comment' post.id comment.id%}" method="post">
+                {% csrf_token %}
+                {{replyform.as_p}}
+                <input type="submit" value="send">
+            </form>
+{% endif %}
+            {% for reply in comment.reply_comment.all %}
+                <div class="card-footer p-3 m-2">
+                <div class="card">
+                    <p class="card-header"> {{ reply.user }} -- {{ reply.created| timesince  }}</p>
+
+                    <p class="card-body">{{ reply.body }}</p>
+                </div>
+                </div>
+
+            {% endfor %}
+
         </div>
+        <br/>
     {% empty %}
         <div class="card">
             <p class="card-body">no comment yet</p>
