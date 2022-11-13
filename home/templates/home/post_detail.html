@@ -10,6 +10,7 @@
     <p> <a href="{% url 'account:profile_user' post.user.id %}">{{ post.user.username }}  </a>:  {{ post.updated|date:"Y/m/d  G:i:s" }}</p>
     <p>{{ post.body }}</p>
     </div>
+    <a class="{% if can_like  %}disabled{% endif %} btn btn-primary col-md-2" href="{% url 'home:post_like' post.id %}"> like {{ post.like_count }}</a>
     <hr/>
      {% if comments %}
     <p> {{ comments.count }} comments </p>
@@ -22,6 +23,7 @@
             <input type="submit" value="send">
         </form>
         <br/>
+
     {% else %}
         <p> only logged in user can send comment</p>
     {% endif %}
