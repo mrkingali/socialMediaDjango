@@ -140,3 +140,23 @@ class UserUnFollow(LoginRequiredMixin,View):
             messages.error(request, "you hadnt follow this user ", 'danger')
 
         return redirect("account:profile_user", user.id)
+
+class EditUserView(LoginRequiredMixin,View):
+    form_class=EditUserForm
+
+    def get(self,request):
+        form=self.form_class(instance=request.user.profile,initial={'email':request.user.email})
+        return render(request,'account/edit_profile.html',{'form':form})
+
+
+    def post(self,request):
+        form=self.form_class(request.POST,instance=request.user.profile)
+
+        if form.is_valid():
+            form.save()
+            request.user.email=form.cleaned_data['email']
+            request.user.save()
+            messages.success(request,'user edited successfully','success')
+        else:
+            messages.error(request,'got error in saving form','danger')
+        return redirect('account:profile_user',request.user.id)

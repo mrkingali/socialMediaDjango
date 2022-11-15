@@ -5,6 +5,7 @@
     {% if  request.user.id == user.id  %}
 
         <a class="btn btn-success" href="{% url 'home:post_create' %}">add post</a>
+        <a class="btn btn-info" href="{% url 'account:edit_profile' %}">edit profile</a>
 
     {% endif %}
     {% if  request.user.id != user.id  and not is_following %}
