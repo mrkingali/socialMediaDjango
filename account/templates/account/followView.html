@@ -4,7 +4,7 @@
 {% for foo in follow %}
 
     <a href="{% url 'account:profile_user' foo.from_user.id %}">{{ foo.from_user }}</a>
-
+    <hr>
 {% endfor %}
 
 

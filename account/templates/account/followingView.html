@@ -5,6 +5,7 @@
 {% for foo in follow %}
 
     <a href="{% url 'account:profile_user' foo.to_user.id %}">{{ foo.to_user }}</a>
+    <hr>
 
 {% endfor %}
 
