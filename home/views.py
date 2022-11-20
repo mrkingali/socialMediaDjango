@@ -34,7 +34,7 @@ class PostDetailView(View):
         comments = self.post_instance.post_comment.filter(is_reply=False)
 
         can_like=False
-        self.post_instance.user_can_like(request.user)
+
         if request.user.is_authenticated and self.post_instance.user_can_like(request.user):
             can_like=True
         return render(request, 'home/post_detail.html', {'post': self.post_instance, 'comments': comments,'form':self.form_class,'replyform':self.form_class_reply ,'can_like':can_like})
