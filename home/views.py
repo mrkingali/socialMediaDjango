@@ -7,7 +7,7 @@ from django.utils.text import slugify
 from .forms import PostCreateUpdateForm,CommentCreateForm,CommentReplyForm,PostSearchForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404,get_list_or_404
 
 
 class HomeView(View):

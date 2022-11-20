@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Relation
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404,get_list_or_404
 
 class UserRegistration(View):
 
@@ -160,3 +161,14 @@ class EditUserView(LoginRequiredMixin,View):
         else:
             messages.error(request,'got error in saving form','danger')
         return redirect('account:profile_user',request.user.id)
+
+class FollowerView(LoginRequiredMixin,View):
+    def get(self,request,user_id):
+        user=get_object_or_404(User,pk=user_id)
+        relations=Relation.objects.filter(to_user=user)
+        return render(request,'account/followView.html',{'follow':relations})
+class FollowingView(LoginRequiredMixin,View):
+    def get(self, request, user_id):
+        user = get_object_or_404(User, pk=user_id)
+        relations=Relation.objects.filter(from_user=user)
+        return render(request, 'account/followingView.html', {'follow': relations})

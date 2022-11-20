@@ -2,6 +2,7 @@
 {% block content %}
 
     <h3 class="text-center">{{ user.username }}</h3>
+    <h5 class="text-center"><a href="{% url 'account:follower' user.id %}">follower</a> : {{ user.following.count }} , <a href="{% url 'account:following' user.id %}">following</a> : {{ user.follower.count }}</h5>
     {% if  request.user.id == user.id  %}
 
         <a class="btn btn-success" href="{% url 'home:post_create' %}">add post</a>
